@@ -1,0 +1,14 @@
+version: 2.1
+# creating a docker environment
+jobs:
+  build:
+    docker:
+      - image: cimg/python:3.11
+    steps:
+      - checkout
+      - run: python main.py
+
+workflows:   # workflow is to run the job, which in this case is building the docker image
+  build_now:
+    jobs:
+     - build
