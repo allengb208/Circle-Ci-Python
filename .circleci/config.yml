@@ -16,6 +16,12 @@ jobs:
       - checkout
       - run: python tests.py
 
+  deploy:
+    docker:
+      - image: cimg/python:3.11
+    steps:
+      - echo "Deploying the image to the production server"
+
 workflows:
   # Workflow is to run the job, which in this case is building the docker image
   build_and_test:
@@ -24,3 +30,9 @@ workflows:
       - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
