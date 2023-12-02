@@ -1,5 +1,6 @@
 version: 2.1
-# creating a docker environment
+
+# Creating a docker environment
 jobs:
   build:
     docker:
@@ -7,18 +8,19 @@ jobs:
     steps:
       - checkout
       - run: python main.py
-  test:
-     docker:
-       - image: cimg/python:3.11
-       steps:
-         - checkout:
-         - run : python tests.py
-  
 
-workflows:   # workflow is to run the job, which in this case is building the docker image
+  test:
+    docker:
+      - image: cimg/python:3.11
+    steps:
+      - checkout
+      - run: python tests.py
+
+workflows:
+  # Workflow is to run the job, which in this case is building the docker image
   build_and_test:
     jobs:
-     - build
-     - test:
-         requires:
-           - build 
+      - build
+      - test:
+          requires:
+            - build
