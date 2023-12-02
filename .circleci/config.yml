@@ -16,6 +16,9 @@ jobs:
   
 
 workflows:   # workflow is to run the job, which in this case is building the docker image
-  build_now:
+  build_and_test:
     jobs:
      - build
+     - test:
+         requires:
+           - build 
